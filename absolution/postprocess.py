@@ -2,7 +2,7 @@ import click
 from absolution.processing_steps.clustering.option_requirements import ClusteringAlgorithmOption, MinClusterSizeOption
 from absolution.consts import ClusteringMethods
 from absolution.format_input import FormattedInput
-from absolution.processing_steps.abundance_and_enrichment import EnrichmentProcessingStep
+from absolution.processing_steps.enrichment.abundance_and_enrichment import EnrichmentProcessingStep
 from absolution.processing_steps.clustering.clustering_analysis import ClusteringAnalysis
 
 

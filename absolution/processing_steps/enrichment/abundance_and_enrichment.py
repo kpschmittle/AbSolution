@@ -1,4 +1,4 @@
-from .processing_step import ProcessingStep
+from absolution.processing_steps.processing_step import ProcessingStep
 
 class EnrichmentProcessingStep(ProcessingStep):
     def __init__(self, rounds):
