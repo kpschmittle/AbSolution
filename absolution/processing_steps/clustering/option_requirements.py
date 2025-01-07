@@ -10,7 +10,22 @@ class ClusteringAlgorithmOption(click.Option):
         return ClusteringMethods(value)
 
 class MinClusterSizeOption(DependentlyRequiredOption):
-    DEPENDEE_VALUES = (ClusteringMethods.linclust, ClusteringMethods.linclust_man)
+    DEPENDEE_VALUES = (
+        ClusteringMethods.linclust,
+        ClusteringMethods.linclust_man,
+        ClusteringMethods.mmseqs,
+        ClusteringMethods.clonotyping
+    )
+    DEPENDEE_NAME = 'clustering_algorithm'
+
+
+class MaxClusterSizeOption(DependentlyRequiredOption):
+    DEPENDEE_VALUES = (
+        ClusteringMethods.linclust,
+        ClusteringMethods.linclust_man,
+        ClusteringMethods.mmseqs,
+        ClusteringMethods.clonotyping
+    )
     DEPENDEE_NAME = 'clustering_algorithm'
 
 

@@ -11,3 +11,4 @@ class DependentlyRequiredOption(click.Option):
             msg = f'Required if --{self.DEPENDEE_NAME}={dependee_value}'
             raise click.MissingParameter(ctx=ctx, param=self, message=msg)
         return value
+

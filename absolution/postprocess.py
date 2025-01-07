@@ -1,9 +1,14 @@
 import click
-from absolution.processing_steps.clustering.option_requirements import ClusteringAlgorithmOption, MinClusterSizeOption
+from absolution.processing_steps.clustering.option_requirements import (
+    ClusteringAlgorithmOption,
+    MinClusterSizeOption,
+    MaxClusterSizeOption
+)
 from absolution.consts import ClusteringMethods
 from absolution.format_input import FormattedInput
-from absolution.processing_steps.enrichment.abundance_and_enrichment import EnrichmentProcessingStep
-from absolution.processing_steps.clustering.clustering_analysis import ClusteringAnalysis
+from absolution.processing_steps.enrichment.enrichmen_processing_step import EnrichmentProcessingStep
+from absolution.processing_steps.clustering.clustering_processing_step import ClusteringProcessingStep
+from absolution.processing_steps.liabilities.liabilities_processing_step import LiabilitiesProcessingStep
 
 
 @click.group(chain=True, invoke_without_command=True)
@@ -30,20 +35,18 @@ def abundance(rounds):
 
 
 @cli.command("clustering")
-
-#type=click.Choice([c.value for c in Color])
 @click.option("-algorithm", "--clustering_algorithm", type=click.Choice([clustering_method.value for clustering_method in ClusteringMethods], case_sensitive=False), help="Desired clustering algorithm", cls=ClusteringAlgorithmOption)
 @click.option("-min_size", "--min_cluster_size", type=int, help="minimum allowed cluster size", cls=MinClusterSizeOption)
-@click.option("-max_size", "--max_cluster_size", type=int, help="maximum allowed cluster size", required=False)
-def clusetering(clustering_algorithm, min_cluster_size, max_cluster_size): # , min_cluster_size, max_cluster_size, max_time_allowed
-
-    return ClusteringAnalysis(clustering_algorithm, min_cluster_size, max_cluster_size)
+@click.option("-max_size", "--max_cluster_size", type=int, help="maximum allowed cluster size", cls=MaxClusterSizeOption)
+def clustering(clustering_algorithm, min_cluster_size, max_cluster_size): # , min_cluster_size, max_cluster_size, max_time_allowed
+    return ClusteringProcessingStep(clustering_algorithm, min_cluster_size, max_cluster_size)
 
 
 @cli.command("liabilities")
-@click.option("-custom", "--custom_liability_list", type=click.Path(), help="Full path to the custom liability list", required=False)
+@click.option("-custom", "--custom_liability_list", type=click.Path(), help="Full path to the custom \
+liability list, if none is provided, default liabilities will be ran", required=False)
 def liabilities(custom_liability_list):
-    pass
+    return LiabilitiesProcessingStep(custom_liability_list)
 
 
 if __name__ == '__main__':
